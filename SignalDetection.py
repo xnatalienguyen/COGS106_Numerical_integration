@@ -84,3 +84,9 @@ class SignalDetection:
         #compute the predicted hit rate based on false alarm rate
         hitRate = scipy.stats.norm.cdf(a + scipy.stats.norm.ppf(falseAlarmRate))
         return(hitRate)
+    
+    @staticmethod
+    def rocLoss(a, sdtList):
+        #calculate the log-liklihood for each predicted hit rate to the observed false alarm rate
+        for sdt in sdtList:
+            loss += sdt.nLogLikelihood(SignalDetection.rocCurve(sdt.getfalseAlarmRate(), a), sdt.getfalseAlarmRate())
