@@ -20,11 +20,31 @@ class SignalDetection:
         return SignalDetection(self.hit + other.hit, self.misses + other.misses, self.falseAlarm + other.falseAlarm, self.correctRejections + other.correctRejections)
     def __mul__(self, scalar):
         return SignalDetection(self.hit * scalar, self.misses * scalar, self.falseAlarm * scalar, self.correctRejections * scalar)
-    def plot_hit_false(self, obj):
-        plt.plot(self.hit_rate, obj.__false_alarm_rate, 'bo')
-        plt.xlabel("Hit rate")
-        plt.ylabel("False alarm rate")
-        plt.title("ROC curve")
+    def plot_hit_false(self):
+       x = [0, self.__hit_rate, 1]
+       y = [0, self.__false_alarm_rate, 1]
+       plt.plot(x, y, 'b')
+       plt.plot(self.__hit_rate, self.__false_alarm_rate, 'bo')
+       plt.xlabel("Hit rate")
+       plt.ylabel("False alarm rate")
+       plt.title("ROC curve")
+       plt.show()
+       
+    def plot_std(self):
+        x = np.arange(-4, 4, 0.01)
+        #N
+        plt.plot(x, norm.pdf(x, 0, 1), 'b', label = "N")
+        #S
+        plt.plot(x, norm.pdf(x, self.d_prime(), 1), 'r', label = "S")
+        #C
+        plt.axvline((self.d_prime()/2) + self.criterion(),color = 'black', linestyle = '--').set_label("C")
+        #D
+        plt.plot([self.d_prime(), 0], [0.4, 0.4], 'k', label = "D")
+
+        plt.xlabel("Decision variable")
+        plt.ylabel("Probability")
+        plt.title("Signal Detection Theory")
+        plt.legend()
         plt.show()
         
 import unittest 
@@ -84,7 +104,7 @@ class TestSignalDetection(unittest.TestCase):
         obtained_d = sd.d_prime()
         self.assertEqual(obtained_c, expected_c)
         self.assertEqual(obtained_d, expected_d)
-        
+
     def test_simulate_single_criterion(self):
         """
         Test SignalDetection.simulate method with a single criterion value.
