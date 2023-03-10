@@ -88,13 +88,15 @@ class SignalDetection:
     @staticmethod
     def rocLoss(a, sdtList):
         #calculate the log-liklihood for each predicted hit rate to the observed false alarm rate
+        loss = 0
         for sdt in sdtList:
-            loss += sdt.nLogLikelihood(SignalDetection.rocCurve(sdt.getfalseAlarmRate(), a), sdt.getfalseAlarmRate())
+            loss += sdt.nLogLikelihood(SignalDetection.rocCurve(sdt.false_alarm_rate, a), sdt.false_alarm_rate)
+        return(loss)
     
     @staticmethod
     def fit_roc(sdtList):
         #get the optimal value for a that minimuzes the loss function
-        optimization_result = scipy.minimize(fun = SignalDetection.rocLoss, x0 = 0, args = (sdtList,))
+        optimization_result = scipy.optimize.minimize(fun = SignalDetection.rocLoss, x0 = 0, args = (sdtList,))
         #result is a_hat which should be close to d'
         a_hat = optimization_result.x
         #Get the fitted data to plot
