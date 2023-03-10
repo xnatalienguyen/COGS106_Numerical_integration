@@ -23,8 +23,8 @@ class SignalDetection:
     def __mul__(self, scalar):
         return SignalDetection(self.hit * scalar, self.misses * scalar, self.falseAlarm * scalar, self.correctRejections * scalar)
     def plot_hit_false(self):
-       x = [0, self.__hit_rate, 1]
-       y = [0, self.__false_alarm_rate, 1]
+       x = [0, self.hit_rate, 1]
+       y = [0, self.false_alarm_rate, 1]
        plt.plot(x, y, 'b')
        plt.plot(self.__hit_rate, self.__false_alarm_rate, 'bo')
        plt.xlabel("Hit rate")
