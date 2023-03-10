@@ -1,5 +1,5 @@
 import unittest
-import TestSignalDetection
+from TestSignalDetection import TestSignalDetection
 from SignalDetection import SignalDetection
 
 def main():
