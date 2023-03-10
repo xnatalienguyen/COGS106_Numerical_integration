@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 import math
 
 class SignalDetection:
-    def __init__(self, hits, misses, falseAlarm, correctRejections):
-        self.hit = hits
+    def __init__(self, hits, misses, falseAlarms, correctRejections):
+        self.hits = hits
         self.misses = misses
-        self.falseAlarm = falseAlarm
+        self.falseAlarms = falseAlarms
         self.correctRejections = correctRejections
         self.hit_rate = hits / (hits + misses)
-        self.false_alarm_rate = falseAlarm / (falseAlarm + correctRejections)
+        self.false_alarm_rate = falseAlarms / (falseAlarms + correctRejections)
         self.hit_dist = NormalDist().inv_cdf(self.hit_rate)
         self.false_dist = NormalDist().inv_cdf(self.false_alarm_rate)
     def d_prime(self):
@@ -21,9 +21,9 @@ class SignalDetection:
         c = (-0.5) * ((self.hit_dist) + (self.false_dist))
         return c
     def __add__(self, other):
-        return SignalDetection(self.hit + other.hit, self.misses + other.misses, self.falseAlarm + other.falseAlarm, self.correctRejections + other.correctRejections)
+        return SignalDetection(self.hits + other.hits, self.misses + other.misses, self.falseAlarms + other.falseAlarms, self.correctRejections + other.correctRejections)
     def __mul__(self, scalar):
-        return SignalDetection(self.hit * scalar, self.misses * scalar, self.falseAlarm * scalar, self.correctRejections * scalar)
+        return SignalDetection(self.hits * scalar, self.misses * scalar, self.falseAlarms * scalar, self.correctRejections * scalar)
     def plot_hit_false(self):
        x = [0, self.hit_rate, 1]
        y = [0, self.false_alarm_rate, 1]
@@ -76,7 +76,7 @@ class SignalDetection:
         plt.title("ROC curve")               
 
     def nLogLikelihood(self, hitRate, falseAlarmRate):
-        likelihood = (-(self.hit) * (math.log(hitRate))) - (self.misses * (math.log(1 - hitRate))) - (self.falseAlarm * (math.log(falseAlarmRate))) - (self.correctRejections * (math.log(1 - falseAlarmRate)))
+        likelihood = (-(self.hits) * (math.log(hitRate))) - (self.misses * (math.log(1 - hitRate))) - (self.falseAlarms * (math.log(falseAlarmRate))) - (self.correctRejections * (math.log(1 - falseAlarmRate)))
         return likelihood
     
     @staticmethod
