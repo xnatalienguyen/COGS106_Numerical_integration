@@ -110,14 +110,14 @@ class TestSignalDetection(unittest.TestCase):
         self.assertEqual(obtained, expected)
     def test_corruption(self):
         sd = SignalDetection(1, 2, 3, 1)
-        sd.__hits = 5
-        sd.__misses = 5
-        sd.__correctRejections = 5
-        sd.__falseAlarm = 5
-        sd.__hit_rate = 5
-        sd.__false_alarm_rate = 5
-        sd.__hit_dist = 5
-        sd.__false_dist = 5
+        sd.hit = 5
+        sd.misses = 5
+        sd.correctRejections = 5
+        sd.falseAlarm = 5
+        sd.hit_rate = 5
+        sd.false_alarm_rate = 5
+        sd.hit_dist = 5
+        sd.false_dist = 5
         expected_c = SignalDetection(1, 2, 3, 1).criterion()
         obtained_c = sd.criterion()
         expected_d = SignalDetection(1, 2, 3, 1).d_prime()
