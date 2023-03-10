@@ -26,7 +26,7 @@ class SignalDetection:
        x = [0, self.hit_rate, 1]
        y = [0, self.false_alarm_rate, 1]
        plt.plot(x, y, 'b')
-       plt.plot(self.__hit_rate, self.__false_alarm_rate, 'bo')
+       plt.plot(self.hit_rate, self.false_alarm_rate, 'bo')
        plt.xlabel("Hit rate")
        plt.ylabel("False alarm rate")
        plt.title("ROC curve")
