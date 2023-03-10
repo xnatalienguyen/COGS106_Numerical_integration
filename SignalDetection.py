@@ -106,5 +106,8 @@ class SignalDetection:
         hitRates = SignalDetection.rocCurve(falsesAlarms, a_hat)
         #plot the fitted cirve
         plt.plot(falsesAlarms, hitRates, 'r')
+        plt.xlabel("False Alarm Rate")
+        plt.ylabel("Hit rate")
+        plt.title("ROC curve")
         plt.show()
         return(a_hat)
