@@ -98,9 +98,10 @@ class SignalDetection:
         #get the optimal value for a that minimuzes the loss function
         optimization_result = scipy.optimize.minimize(fun = SignalDetection.rocLoss, x0 = 0, args = (sdtList,))
         #result is a_hat which should be close to d'
-        a_hat = optimization_result.x
+        a_hat = optimization_result.x[0]
         #Get the fitted data to plot
         falsesAlarms = np.arange(0, 1, 0.01)
         hitRates = SignalDetection.rocCurve(falsesAlarms, a_hat)
         #plot the fitted cirve
         plt.plot(falsesAlarms, hitRates)
+        return(a_hat)
