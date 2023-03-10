@@ -78,3 +78,9 @@ class SignalDetection:
     def nLogLikelihood(self, hitRate, falseAlarmRate):
         likelihood = (-(self.hit) * (math.log(hitRate))) - (self.misses * (math.log(1 - hitRate))) - (self.falseAlarm * (math.log(falseAlarmRate))) - (self.correctRejections * (math.log(1 - falseAlarmRate)))
         return likelihood
+    
+    @staticmethod
+    def rocCurve(falseAlarmRate, a):
+        #compute the predicted hit rate based on false alarm rate
+        hitRate = scipy.stats.norm.cdf(a + scipy.stats.norm.ppf(falseAlarmRate))
+        return(hitRate)
