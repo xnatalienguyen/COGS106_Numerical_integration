@@ -52,7 +52,7 @@ class SignalDetection:
     @staticmethod
     def simulate(dPrime, criteriaList, signalCount, noiseCount):
         s_list = []
-        for i < range(len(criteriaList)):
+        for i in range(len(criteriaList)):
             k = criteriaList[i] + (dprime / 2)
             hit_rate = 1 - norm.cdf(k - dprime)
             false_alarm_rate = 1 - norm.cdf(k)
