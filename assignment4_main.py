@@ -62,7 +62,17 @@ class SignalDetection:
             correctRejections = noiseCount - falseAlarm
             s_list.append(SignalDetection(hits, misses, falseAlarm, correctRejections))
         return s_list
-    
+
+    @staticmethod
+    def plot_roc(sdtList):
+        for i in range(len(sdtList)):
+            plt.plot(stdList[i].false_alarm_rate, stdList[i].hit_rate, 'b')
+        plt.plot(0, 0, 'b')
+        plt.plot(1, 1, 'b')
+        plt.xlabel("False Alarm Rate")
+        plt.ylabel("Hit rate")
+        plt.title("ROC curve")               
+
     def nLogLikelihood(self, hitRate, falseAlarmRate):
         likelihoood = (-(self.hit) * (math.log(hitRate))) - (self.misses * (math.log(1 - hitRate))) - (self.falseAlarm * (math.log(falseAlarmRate))) - (self.correctRejections * (math.log(1 - falseAlarmRate)))
         return likelihood
