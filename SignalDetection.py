@@ -67,13 +67,15 @@ class SignalDetection:
 
     @staticmethod
     def plot_roc(sdtList):
+        x = list()
+        y = list()
         for i in range(len(sdtList)):
-            plt.plot(sdtList[i].false_alarm_rate, sdtList[i].hit_rate, 'b')
-        plt.plot(0, 0, 'b')
-        plt.plot(1, 1, 'b')
+            x.append(sdtList[i].false_alarm_rate)
+            y.append(sdtList[i].hit_rate)
+        plt.scatter(x, y, c='k')
         plt.xlabel("False Alarm Rate")
         plt.ylabel("Hit rate")
-        plt.title("ROC curve")               
+        plt.title("ROC curve")
 
     def nLogLikelihood(self, hitRate, falseAlarmRate):
         likelihood = (-(self.hits) * (math.log(hitRate))) - (self.misses * (math.log(1 - hitRate))) - (self.falseAlarms * (math.log(falseAlarmRate))) - (self.correctRejections * (math.log(1 - falseAlarmRate)))
@@ -103,5 +105,6 @@ class SignalDetection:
         falsesAlarms = np.arange(0, 1, 0.01)
         hitRates = SignalDetection.rocCurve(falsesAlarms, a_hat)
         #plot the fitted cirve
-        plt.plot(falsesAlarms, hitRates)
+        plt.plot(falsesAlarms, hitRates, 'r')
+        plt.show()
         return(a_hat)
