@@ -1,4 +1,6 @@
 from statistics import NormalDist
+import numpy as np
+import math
 
 class SignalDetection:
     def __init__(self, hits, misses, falseAlarm, correctRejections):
@@ -61,6 +63,9 @@ class SignalDetection:
             s_list.append(SignalDetection(hits, misses, falseAlarm, correctRejections))
         return s_list
     
+    def nLogLikelihood(self, hitRate, falseAlarmRate):
+        likelihoood = (-(self.hit) * (math.log(hitRate))) - (self.misses * (math.log(1 - hitRate))) - (self.falseAlarm * (math.log(falseAlarmRate))) - (self.correctRejections * (math.log(1 - falseAlarmRate)))
+        return likelihood
         
 import unittest 
 
