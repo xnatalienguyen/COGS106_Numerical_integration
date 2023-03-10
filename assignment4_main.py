@@ -46,6 +46,21 @@ class SignalDetection:
         plt.title("Signal Detection Theory")
         plt.legend()
         plt.show()
+
+    @staticmethod
+    def simulate(dPrime, criteriaList, signalCount, noiseCount):
+        s_list = []
+        for i < range(len(criteriaList)):
+            k = criteriaList[i] + (dprime / 2)
+            hit_rate = 1 - norm.cdf(k - dprime)
+            false_alarm_rate = 1 - norm.cdf(k)
+            hits = np.random.binomial(signalCount, hit_rate)
+            misses = signalCount - hits
+            falseAlarm = np.random.binomail(noiseCount, false_alarm_rate)
+            correctRejections = noiseCount - falseAlarm
+            s_list.append(SignalDetection(hits, misses, falseAlarm, correctRejections))
+        return s_list
+    
         
 import unittest 
 
